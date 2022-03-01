@@ -1,0 +1,1 @@
+print((lambda x: 'YES' if (x % 2 == 0 and x > 2) else 'NO')(int(input())))
