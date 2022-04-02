@@ -5,6 +5,7 @@ class Module:
         self.fun = fun
         self.children = []
         self.parent = -1
+        self.final_fun = fun
 
     def add_child(self, child):
         self.children.append(child)
@@ -17,18 +18,19 @@ class Module:
 
     # recursively compute max fun by comparing with children's fun
     def find_fun(self):
-        res = 0
         num_children = len(self.children)
 
         if (num_children == 0):
-            return self.fun
+            return 0
 
         min_child = -1
         min_fun = float('inf')
         children_fun = []
+        other_fun = 0
         for i in range(num_children):
             child = self.children[i]
-            child_fun = child.find_fun()
+            other_fun += child.find_fun()
+            child_fun = child.final_fun
             children_fun.append(child_fun)
             if child_fun < min_fun:
                 min_fun = child_fun
@@ -38,9 +40,9 @@ class Module:
         # fun of a tree is the max of the root's fun and the minimum fun of the children
         # summed together with the other funs of the children
         children_fun.pop(min_child)
-        res += sum(children_fun)
-        res += max(self.fun, min_fun)
-        return res
+        self.final_fun = max(self.fun, min_fun)
+        other_fun += sum(children_fun)
+        return other_fun
 
 def init_modules(mods):
     res_modules = []
@@ -67,7 +69,7 @@ def solve():
     res = 0
     for mod in modules:
         if mod.is_root():
-            res += mod.find_fun()
+            res += mod.find_fun() + mod.final_fun
 
     return res
 
