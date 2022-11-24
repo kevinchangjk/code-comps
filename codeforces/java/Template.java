@@ -1,3 +1,8 @@
+/**
+ * Template class for Codeforces problems.
+ * Written by @kevinchangjk
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,19 +34,23 @@ class Template {
         }
     }
 
+    // solution
+    private static void solve(FastScanner sc, PrintWriter out) {
+        int num = sc.nextInt();
+        out.println(num);
+    }
+
     public static void main(String[] args) {
         FastScanner sc = new Template.FastScanner();
         PrintWriter out = new PrintWriter(System.out);
         int tc = sc.nextInt();
 
-        // input reception: use with sc.next(), sc.nextInt(), sc.nextLong()
-
-        // solution
-
-        // output: use with out.println() then call the close() method at end
+        // solving for every test case
         for (int i = 0; i < tc; i++) {
-            out.println(i);
+            solve(sc, out);
         }
+
+        // flush all output
         out.close();
     }
 }
